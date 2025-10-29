@@ -1,0 +1,133 @@
+<!-- /templates/car_details.html -->
+{% extends "base.html" %}
+
+{% block title %}Автомобиль {{ car_id }} - AutoCatalog{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Хлебные крошки -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/example/">Главная</a></li>
+            <li class="breadcrumb-item"><a href="/example/catalog">Каталог</a></li>
+            <li class="breadcrumb-item active">Автомобиль {{ car_id }}</li>
+        </ol>
+    </nav>
+
+    <!-- Основной контент -->
+    <div id="carContent">
+        <div class="text-center py-5">
+            <div class="spinner-border text-primary-custom" role="status">
+                <span class="visually-hidden">Загрузка...</span>
+            </div>
+            <p class="text-muted mt-2">Загружаем информацию об автомобиле...</p>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для фото -->
+<div class="modal fade" id="photoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Фото автомобиля</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <img id="modalPhoto" src="" class="img-fluid" style="max-height: 70vh; object-fit: contain;">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+    /* Сохраняем все оригинальные стили */
+    .car-specs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    .spec-item {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--border-color, #e2e8f0);
+    }
+
+    .spec-label {
+        font-size: 0.85rem;
+        color: var(--text-light, #718096);
+        margin-bottom: 0.25rem;
+    }
+
+    .spec-value {
+        font-weight: 600;
+        color: var(--text-dark, #2d3748);
+    }
+
+    .price-section {
+        text-align: center;
+        padding: 1rem 0;
+    }
+
+    .equipment-toggle {
+        cursor: pointer;
+        transition: background-color 0.2s;
+        border-radius: 0.375rem;
+        margin: 0 -0.5rem;
+        padding: 0.75rem 0.5rem;
+    }
+
+    .equipment-toggle:hover {
+        background-color: var(--light-bg, #f7fafc);
+    }
+
+    .photo-placeholder {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-light, #718096);
+    }
+
+    /* Мобильная адаптация */
+    @media (max-width: 768px) {
+        .container {
+            padding: 0 10px;
+        }
+        
+        .car-specs-grid {
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+        }
+        
+        .btn-group-mobile {
+            display: grid;
+            gap: 0.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<!-- Безопасные утилиты -->
+<script src="/example/static/js/utils/safe-dom.js"></script>
+<script src="/example/static/js/utils/url-state-manager.js"></script>
+
+<!-- Сервисы -->
+<script src="/example/static/js/services/currency-service.js"></script>
+<script src="/example/static/js/services/api-service.js"></script>
+
+<!-- Модуль деталей автомобиля -->
+<script src="/example/static/js/modules/car-details-app.js"></script>
+
+<script>
+    // Инициализация приложения деталей автомобиля
+    document.addEventListener('DOMContentLoaded', function() {
+        const carId = {{ car_id }};
+        const app = new CarDetailsApp(carId);
+        app.init();
+    });
+</script>
+{% endblock %}

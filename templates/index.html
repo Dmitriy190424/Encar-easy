@@ -1,0 +1,128 @@
+<!-- /templates/index.html -->
+{% extends "base.html" %}
+
+{% block title %}Главная - AutoCatalog{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+            <!-- Заголовок -->
+            <div class="mb-5">
+                <h1 class="display-4 text-dark mb-3">🚗 AutoCatalog</h1>
+                <p class="lead text-muted">
+                    Самый полный каталог автомобилей с корейского рынка
+                </p>
+            </div>
+
+            <!-- Статистика -->
+            <div class="row mb-5">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="text-primary-custom" id="totalCars">150,000+</h3>
+                            <p class="text-muted mb-0">автомобилей в базе</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="text-primary-custom">50+</h3>
+                            <p class="text-muted mb-0">брендов</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body">
+                            <h3 class="text-primary-custom">2010-2024</h3>
+                            <p class="text-muted mb-0">годы выпуска</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Кнопки действий -->
+            <div class="d-grid gap-3 d-md-flex justify-content-md-center mb-5">
+                <a href="/example/catalog" class="btn btn-primary-custom btn-lg px-5 me-md-2">
+                    📋 Перейти в каталог
+                </a>
+                <a href="/example/filters" class="btn btn-outline-primary-custom btn-lg px-5">
+                    🔧 Расширенные фильтры
+                </a>
+            </div>
+
+            <!-- Особенности -->
+            <div class="row text-start">
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <span class="fs-2">🔍</span>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5>Детальный поиск</h5>
+                            <p class="text-muted mb-0">
+                                Поиск по марке, модели, году выпуска, пробегу и другим параметрам
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <span class="fs-2">💰</span>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5>Актуальные цены</h5>
+                            <p class="text-muted mb-0">
+                                Цены в вонах и рублях с автоматической конвертацией
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <span class="fs-2">📊</span>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5>Полная история</h5>
+                            <p class="text-muted mb-0">
+                                История владения, ДТП и технические осмотры
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <span class="fs-2">🖼️</span>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h5>Фото галерея</h5>
+                            <p class="text-muted mb-0">
+                                Множество фотографий каждого автомобиля
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Обновление счетчика автомобилей (можно заменить на реальные данные)
+        setTimeout(() => {
+            const counter = document.getElementById('totalCars');
+            if (counter) {
+                counter.textContent = '157,621+';
+            }
+        }, 1000);
+    });
+</script>
+{% endblock %}

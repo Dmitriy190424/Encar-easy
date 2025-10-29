@@ -1,0 +1,46 @@
+<!-- /templates/filters.html -->
+{% extends "base.html" %}
+
+{% block title %}Фильтры - AutoCatalog{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-primary-custom text-white">
+                    <h4 class="mb-0">🔧 Расширенные фильтры</h4>
+                </div>
+                <div class="card-body">
+                    <div id="filtersContent">
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-primary-custom" role="status">
+                                <span class="visually-hidden">Загрузка...</span>
+                            </div>
+                            <p class="text-muted mt-2">Загружаем фильтры...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- Безопасные утилиты -->
+<script src="/example/static/js/utils/safe-dom.js"></script>
+<script src="/example/static/js/utils/url-state-manager.js"></script>
+
+<!-- Сервисы -->
+<script src="/example/static/js/services/api-service.js"></script>
+
+<!-- Модуль фильтров -->
+<script src="/example/static/js/modules/filters-app.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        new FiltersApp();
+    });
+</script>
+{% endblock %}

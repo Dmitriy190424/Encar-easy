@@ -1,0 +1,97 @@
+{% extends "inspection/base.html" %}
+
+{% block content %}
+<div class="inspection-report">
+    <!-- Временно добавим для отладки -->
+    <div style="background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; display: none;" id="debug-info">
+        <strong>Отладка:</strong>
+        <div>Всего повреждений: {{ report_data.damage_points|length }}</div>
+        <div>Данные повреждений: {{ report_data.damage_points }}</div>
+    </div>
+
+    <!-- Заголовок -->
+    <div class="header">
+        <h1>{{ report_data.translations.title }}</h1>
+        <div class="vehicle-info">
+            <div class="info-grid">
+                <div><strong>Модель:</strong> {{ report_data.car_model }}</div>
+                <div><strong>Год:</strong> {{ report_data.car_year }}</div>
+                <div><strong>VIN:</strong> {{ report_data.vin }}</div>
+                <div><strong>Пробег:</strong> {{ report_data.mileage }} {{ report_data.translations.km_label }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Основная информация -->
+    <div class="section">
+        <h3>{{ report_data.translations.general_condition_label }}</h3>
+        <div class="info-grid detailed">
+            <div><strong>{{ report_data.translations.first_reg_label }}:</strong> {{ report_data.first_registration_date }}</div>
+            <div><strong>{{ report_data.translations.transmission_label }}:</strong> {{ report_data.transmission_type }}</div>
+            <div><strong>{{ report_data.translations.fuel_label }}:</strong> {{ report_data.fuel_type }}</div>
+            <div><strong>{{ report_data.translations.warranty_label }}:</strong> {{ report_data.warranty_type }}</div>
+            <div><strong>{{ report_data.translations.engine_label }}:</strong> {{ report_data.engine_type }}</div>
+            <div><strong>{{ report_data.translations.odometer_label }}:</strong> {{ report_data.mileage_condition }}</div>
+            <div><strong>{{ report_data.translations.vin_label }}:</strong> {{ report_data.vin_condition }}</div>
+            <div><strong>{{ report_data.translations.tuning_label }}:</strong> {{ report_data.tuning_status }}</div>
+            <div><strong>{{ report_data.translations.special_history_label }}:</strong> {{ report_data.special_history }}</div>
+            <div><strong>{{ report_data.translations.purpose_change_label }}:</strong> {{ report_data.purpose_change }}</div>
+            <div><strong>{{ report_data.translations.accident_label }}:</strong> {{ report_data.accident_history }}</div>
+            <div><strong>{{ report_data.translations.simple_repair_label }}:</strong> {{ report_data.simple_repair }}</div>
+        </div>
+    </div>
+
+    <!-- Схемы повреждений -->
+    <div class="section">
+        <h3>Повреждения кузова</h3>
+        {{ report_data.svg_schemes|safe }}
+    </div>
+
+    <!-- Легенда -->
+    {% if report_data.damage_points %}
+    <div class="section">
+        <h3>Легенда повреждений</h3>
+        <div class="legend">
+            {% for damage_type, data in report_data.damage_points.items() %}
+            <div class="legend-item">
+                <div class="legend-color" style="background: {{ data.color }};"></div>
+                <span>{{ damage_type }} ({{ data.count }})</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Диагностика -->
+    <div class="section">
+        <h3>{{ report_data.translations.detailed_condition_label }}</h3>
+        {{ report_data.diagnosis_sections|safe }}
+    </div>
+
+    <!-- Список ремонтов -->
+    <div class="section">
+        <h3>Ремонты и замены деталей</h3>
+        {{ report_data.repair_list|safe }}
+    </div>
+
+    <!-- Примечание -->
+    <div style="text-align: center; color: #666; font-style: italic; margin: 20px 0;">
+        {{ report_data.translations.note_text }}
+    </div>
+
+    <!-- Управление -->
+    <div class="controls">
+        <button onclick="window.print()">🖨 Печать</button>
+        <a href="?lang=en" class="lang-btn">🌐 English</a>
+        <button onclick="toggleDebug()">🐛 Отладка</button>
+        <button onclick="window.close()">❌ Закрыть</button>
+    </div>
+</div>
+
+<script>
+function toggleDebug() {
+    const debugInfo = document.getElementById('debug-info');
+    debugInfo.style.display = debugInfo.style.display === 'block' ? 'none' : 'block';
+}
+</script>
+{% endblock %}

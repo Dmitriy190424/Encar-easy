@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Ошибка акта осмотра - AutoCatalog{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">❌ Ошибка акта осмотра</h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <h5>{{ message }}</h5>
+                    </div>
+                    <a href="/example/catalog" class="btn btn-primary-custom">← Вернуться в каталог</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
